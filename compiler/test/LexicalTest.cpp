@@ -107,7 +107,7 @@ int main() {
                     << "[" << token.position << "] "
                     << (token.kind == TokenKind::End
                             ? "<END>"
-                            : token.text)
+                            : (tokenKindToString(token.kind) + " ( " + token.text + " )"))
                     << '\n';
             }
         } 

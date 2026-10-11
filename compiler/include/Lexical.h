@@ -61,6 +61,8 @@ struct OperatorInfo {
 
 const std::unordered_map<std::string, OperatorInfo>& operatorTable();
 
+std::string tokenKindToString(TokenKind kind);
+
 struct Token {
     TokenKind kind;
     std::string text;

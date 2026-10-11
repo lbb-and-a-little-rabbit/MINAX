@@ -97,6 +97,20 @@ const std::unordered_map<std::string, OperatorInfo>& operatorTable() {
     return table;
 }
 
+std::string tokenKindToString(TokenKind kind) {
+    switch (kind) {
+        case TokenKind::Number:     return "Number";
+        case TokenKind::Identifier: return "Identifier";
+        case TokenKind::Operator:   return "Operator";
+        case TokenKind::LParen:     return "LParen";
+        case TokenKind::RParen:     return "RParen";
+        case TokenKind::Comma:      return "Comma";
+        case TokenKind::End:        return "End";
+    }
+
+    return "Unknown";
+}
+
 namespace{
 
 bool isSpace(char c) {

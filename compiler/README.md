@@ -266,7 +266,7 @@ We can use the following commands to test the lexical analysis(Mingw64) :
 
 ```bash
 
-g++ -std=c++17 -Iincldue src/Lexical.cpp test/LexicalTest.cpp -o lexicaltest
+g++ -std=c++17 -Iinclude src/Lexical.cpp test/LexicalTest.cpp -o lexicaltest
 ./lexicaltest
 
 ```
