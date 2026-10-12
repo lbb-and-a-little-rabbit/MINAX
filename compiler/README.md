@@ -512,7 +512,7 @@ std::unique_ptr<ASTNode> Syntax::parseExpression(int minPrecedence) {
 
 See some examples of the syntax tree to better understand the whole process.
 
-#### 1. 四则运算：`x + 2 * y`
+#### 1. Four fundamental operations ：`x + 2 * y`
 
 ```mermaid
 flowchart TD
@@ -522,7 +522,7 @@ flowchart TD
     C -->|right| E["Variable: y"]
 ```
 
-#### 2. 括号与一元负号：`- ( x + 2 ) * y`
+#### 2. Parentheses and unary negative sign：`- ( x + 2 ) * y`
 
 ```mermaid
 flowchart TD
