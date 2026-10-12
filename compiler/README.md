@@ -767,6 +767,31 @@ We can call them in function parsePrimary() :
 
 ```
 
+Here are some examples in graphical form :
+
+
+#### 3. Function：`max ( x + 1 , sin ( y ) )`
+
+```mermaid
+flowchart TD
+    A["FunctionCall: max"] -->|"arguments[0]"| B["BinaryOperator: +"]
+    A -->|"arguments[1]"| C["FunctionCall: sin"]
+    B -->|left| D["Variable: x"]
+    B -->|right| E["Number: 1"]
+    C -->|"arguments[0]"| F["Variable: y"]
+```
+
+#### 4. Sum：`sum ( i , 1 , 3 , i * x )`
+
+```mermaid
+flowchart TD
+    A["Reduction: Sum; indexName = i"] -->|lower| B["Number: 1"]
+    A -->|upper| C["Number: 3"]
+    A -->|body| D["BinaryOperator: *"]
+    D -->|left| E["Variable: i"]
+    D -->|right| F["Variable: x"]
+```
+
 You can test by running the following command :
 
 ```bash
