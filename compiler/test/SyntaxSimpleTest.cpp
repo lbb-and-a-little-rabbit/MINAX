@@ -45,6 +45,7 @@ int main() {
     testSets.push_back("1 + 2 * 3 / 4 - 5 * 6");
     testSets.push_back("x + y - z * w / t");
     testSets.push_back("- 1 + 2");
+    testSets.push_back("- 1 + 2 * 3");
 
     // 错误测试
     testSets.push_back("1 +");          // 缺少右操作数
