@@ -2,6 +2,7 @@
 
 #include "Lexical.h"
 #include <memory>
+#include <limits>
 
 enum class SyntaxKind {
     Number,
@@ -20,6 +21,22 @@ enum class SyntaxKind {
 enum class ReductionKind {
     Sum,
     Product
+};
+
+// 【语义分析新增】无效编号
+inline constexpr std::size_t INVALID_BINDING_ID = std::numeric_limits<std::size_t>::max();
+
+// 【语义分析新增】变量的来源
+enum class VariableSource {
+    Unbound,    // 尚未绑定
+    Global,     // 外部提供的优化变量
+    Local       // sum/prod 的局部下标
+};
+
+// 【语义分析新增】变量引用的绑定信息
+struct VariableBinding {
+    VariableSource source = VariableSource::Unbound;
+    std::size_t slot = INVALID_BINDING_ID;
 };
 
 struct ASTNode {
@@ -63,6 +80,17 @@ struct ASTNode {
     std::unique_ptr<ASTNode> lower;
     std::unique_ptr<ASTNode> upper;
     std::unique_ptr<ASTNode> body;
+
+    // 【语义分析新增】仅 Variable 使用
+    VariableBinding binding;
+
+    // 【语义分析新增】仅 FunctionCall 使用
+    // 对应外部函数列表中的下标
+    std::size_t functionId = INVALID_BINDING_ID;
+
+    // 【语义分析新增】仅 Reduction 使用
+    // 本节点声明的下标对应哪个局部存储位置
+    std::size_t indexSlot = INVALID_BINDING_ID;
 };
 
 // 【新增：比较约束】
