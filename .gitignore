@@ -1,5 +1,10 @@
-/compiler/.vscode
-/c-solver-web-demo
+.vscode
+.venv
+/bin
+/build
 *.exe
-*.html
 *.minax
+/main.cpp
+/README_UI.md
+node_modules
+backend/php.local.ini
