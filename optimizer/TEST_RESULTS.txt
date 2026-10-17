@@ -1,0 +1,47 @@
+Internal ctest changing into directory: /workspace/scratch/e677af72f283/minax-optimizer-build
+UpdateCTestConfiguration  from :/workspace/scratch/e677af72f283/minax-optimizer-build/DartConfiguration.tcl
+UpdateCTestConfiguration  from :/workspace/scratch/e677af72f283/minax-optimizer-build/DartConfiguration.tcl
+Test project /workspace/scratch/e677af72f283/minax-optimizer-build
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: optimizer_tests
+
+1: Test command: /workspace/scratch/e677af72f283/minax-optimizer-build/optimizer_tests
+1: Working Directory: /workspace/scratch/e677af72f283/minax-optimizer-build
+1: Test timeout computed to be: 10000000
+1: quadratic seed=42 feasible=1 f=9.92015e-19 error=9.92015e-19 violation=0 evaluations=801 seconds=0.00307484
+1: equality seed=42 feasible=1 f=0.5 error=9.79399e-08 violation=9.79399e-08 evaluations=1239 seconds=0.00519427
+1: circle seed=42 feasible=1 f=3.34315 error=1.49894e-07 violation=8.19796e-08 evaluations=1092 seconds=0.0030621
+1: maximize seed=42 feasible=1 f=7 error=0 violation=0 evaluations=783 seconds=0.00257498
+1: different_scales seed=42 feasible=1 f=1.52197e-19 error=1.52197e-19 violation=0 evaluations=789 seconds=0.00261659
+1: partial_domain seed=42 feasible=1 f=3.98438e-21 error=3.98438e-21 violation=0 evaluations=434 seconds=0.001538
+1: quadratic seed=2026 feasible=1 f=3.09758e-18 error=3.09758e-18 violation=0 evaluations=813 seconds=0.00244372
+1: equality seed=2026 feasible=1 f=0.5 error=9.57713e-08 violation=9.57713e-08 evaluations=1234 seconds=0.00319225
+1: circle seed=2026 feasible=1 f=3.34315 error=1.49894e-07 violation=8.19796e-08 evaluations=1070 seconds=0.00367915
+1: maximize seed=2026 feasible=1 f=7 error=0 violation=0 evaluations=808 seconds=0.00260229
+1: different_scales seed=2026 feasible=1 f=6.02191e-20 error=6.02191e-20 violation=0 evaluations=821 seconds=0.00281939
+1: partial_domain seed=2026 feasible=1 f=3.87438e-20 error=3.87438e-20 violation=0 evaluations=473 seconds=0.00175742
+1: contradictory: correctly no feasible point found
+1: budget: 10 evaluations
+1: local callback budget: 70 evaluations
+1: all invalid: correctly rejected
+1: invalid bounds: correctly rejected
+1: ALL TESTS PASSED
+1/2 Test #1: optimizer_tests ..................   Passed    0.04 sec
+test 2
+    Start 2: expression_tests
+
+2: Test command: /workspace/scratch/e677af72f283/minax-optimizer-build/expression_tests
+2: Working Directory: /workspace/scratch/e677af72f283/minax-optimizer-build
+2: Test timeout computed to be: 10000000
+2: Expression tests passed: sum optimization, prod, function, >=, strict comparisons
+2/2 Test #2: expression_tests .................   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Total Test time (real) =   0.05 sec
