@@ -81,9 +81,9 @@ final class Application {
             return ['data'=>['items'=>array_map(static fn($r)=>['id'=>(int)$r['id'],'expression'=>$r['expression'],'variables'=>json_decode($r['variables_json'],true),'displayValue'=>$r['result_text'],'durationMs'=>(float)$r['duration_ms'],'created'=>(int)$r['created_at']],$rows)]];
         }
         if($method==='DELETE' && $path==='/api/history'){$this->query("DELETE FROM calculations WHERE $column=?",[$owner]);return ['data'=>['ok'=>true]];}
-        if($method==='POST' && $path==='/api/optimize')throw new ApiError('NOT_AVAILABLE',501);
-        if($method==='POST' && $path==='/api/evaluate'){
-            $this->limit('evaluate:'.$ip,60,60);
+        if($method==='POST' && in_array($path,['/api/evaluate','/api/optimize'],true)){
+            $optimize=$path==='/api/optimize';
+            $this->limit(($optimize?'optimize:':'evaluate:').$ip,$optimize?10:60,60);
             $lock=null;
             for($i=0;$i<2;$i++){
                 $candidate=fopen(dirname($this->config['database']).'/worker-'.$i.'.lock','c');
@@ -91,7 +91,8 @@ final class Application {
                 if($candidate)fclose($candidate);
             }
             if(!$lock)throw new ApiError('BUSY',429);
-            try{$result=(new NativeEvaluator($this->config))->calculate($body);}finally{flock($lock,LOCK_UN);fclose($lock);}
+            try{$result=$optimize ? (new NativeOptimizer($this->config))->calculate($body) : (new NativeEvaluator($this->config))->calculate($body);}finally{flock($lock,LOCK_UN);fclose($lock);}
+            if($optimize)return ['data'=>$result];
             $this->query('INSERT INTO calculations(user_id,guest_session,expression,variables_json,result_text,duration_ms,created_at) VALUES(?,?,?,?,?,?,?)',[$session['user_id'],$session['user_id']===null?$session['id_hash']:null,$result['expression'],json_encode($result['variables'],JSON_THROW_ON_ERROR),$result['displayValue'],$result['durationMs'],time()]);
             $this->query("DELETE FROM calculations WHERE $column=? AND id NOT IN (SELECT id FROM calculations WHERE $column=? ORDER BY id DESC LIMIT 30)",[$owner,$owner]);
             return ['data'=>$result];

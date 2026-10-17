@@ -1,5 +1,11 @@
 import {state,t} from './state';
 const messages={
+ OPTIMIZER_UNAVAILABLE:['求解服务暂不可用，请稍后重试。','Optimization is temporarily unavailable.'],
+ INVALID_BOUNDS:['请检查变量名，以及上下界和初始值；下界须小于上界。','Check variable names, bounds and initial values. Lower bounds must be smaller than upper bounds.'],
+ INVALID_CONSTRAINTS:['请检查约束，每行应包含一个 =、<= 或 >=。','Each constraint must contain one =, <= or >=.'],
+ UNSUPPORTED_CONSTRAINT:['求解暂支持 =、<=、>=，不支持严格不等式或不等于。','Use =, <= or >=; strict inequalities and != are not supported.'],
+ OPTIMIZATION_TIMEOUT:['本次求解超时，请缩小变量范围或简化约束后重试。','Search timed out. Narrow the bounds or simplify constraints.'],
+ OPTIMIZATION_FAILED:['求解未完成，请检查输入或稍后重试。','Optimization failed. Check your input or retry later.'],
  SESSION_EXPIRED:['登录已过期，请重新登录或继续以游客使用。','Your session expired. Sign in or continue as a guest.'],
  REQUEST_REJECTED:['操作未完成，请刷新页面后重试。','Refresh the page and try again.'],
  INVALID_CREDENTIAL_FORMAT:['用户名需为 3–32 位字母、数字或下划线；密码需为 8–72 个英文字符或数字。','Use a 3–32 character username and an 8–72 byte password.'],
@@ -25,8 +31,8 @@ const messages={
  CALCULATION_FAILED:['计算未完成，请检查表达式或稍后重试。','Calculation failed. Check the expression or try again later.']
 };
 export function errorText(code){return t(...(messages[code] || ['操作未完成，请稍后重试。','The operation failed. Please try again.']));}
-export async function api(path,{method='GET',data}={}){
- const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),window.MINAX_CONFIG?.requestTimeoutMs ?? 15000);
+export async function api(path,{method='GET',data,timeoutMs}={}){
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),timeoutMs ?? window.MINAX_CONFIG?.requestTimeoutMs ?? 15000);
  try{
   const headers={};
   if(method!=='GET'){headers['Content-Type']='application/json';headers['X-CSRF-Token']=state.csrf;}

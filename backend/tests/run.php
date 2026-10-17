@@ -21,7 +21,7 @@ try{
  run('request forgery rejected',fn()=>fails(fn()=>request($app,'POST','/api/evaluate',[],$guest,['X-CSRF-Token'=>'wrong']),'REQUEST_REJECTED'));
  run('untrusted origin rejected',fn()=>fails(fn()=>request($app,'GET','/api/history',[],$guest,['Origin'=>'https://evil.example']),'REQUEST_REJECTED'));
  run('invalid variables rejected',function()use($app,$guest){foreach([true,INF,'2'] as $value)fails(fn()=>request($app,'POST','/api/evaluate',['expression'=>'x','variables'=>[['name'=>'x','value'=>$value]]],$guest),'INVALID_VARIABLES');});
- run('optimizer unavailable',fn()=>fails(fn()=>request($app,'POST','/api/optimize',[],$guest),'NOT_AVAILABLE'));
+ run('optimizer rejects empty input',fn()=>fails(fn()=>request($app,'POST','/api/optimize',[],$guest),'INVALID_REQUEST'));
  if(is_file($config['native'])){
   run('real native evaluation: sum, nested product, functions',function()use($app,$guest){
    $cases=[['sum ( i , 1 , 3 , i * x ) + pow ( y , 2 )',[['name'=>'x','value'=>2],['name'=>'y','value'=>3]],21],['sum ( i , 1 , 3 , prod ( j , 1 , i , j ) )',[],9],['sqrt ( pow ( x , 2 ) + pow ( y , 2 ) )',[['name'=>'x','value'=>3],['name'=>'y','value'=>4]],5]];

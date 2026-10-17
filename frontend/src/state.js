@@ -4,6 +4,7 @@ export const state=reactive({
  lang:saved('minax-v2-language','zh'),theme:saved('minax-v2-theme','light'),fontSize:saved('minax-v2-font','normal'),
  user:null,csrf:'',ready:false,sessionError:'',
  draft:saved('minax-v2-draft',{expression:'sum ( i , 1 , 3 , i * x ) + pow ( y , 2 )',variables:[{name:'x',value:'2'},{name:'y',value:'3'}]}),
+ optimizeDraft:saved('minax-v2-optimize',{goal:'min',variables:[{name:'x',lower:'-5',upper:'5',initial:'0'},{name:'y',lower:'-5',upper:'5',initial:'0'}],expression:'( x - 2 ) * ( x - 2 ) + ( y + 1 ) * ( y + 1 )',constraints:'x + y = 2'}),
  notice:''
 });
 export const t=(zh,en)=>state.lang==='zh'?zh:en;
@@ -20,3 +21,5 @@ export const examples=[
  {zh:'平方根',en:'Square root',expression:'sqrt ( pow ( x , 2 ) + pow ( y , 2 ) )',variables:[{name:'x',value:'3'},{name:'y',value:'4'}]},
  {zh:'嵌套连乘',en:'Nested product',expression:'sum ( i , 1 , 3 , prod ( j , 1 , i , j ) )',variables:[]}
 ];
+
+watch(()=>state.optimizeDraft,value=>persist('minax-v2-optimize',value),{deep:true});
